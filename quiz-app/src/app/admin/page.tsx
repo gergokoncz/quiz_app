@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap"
 
 const AdminPage: React.FC = () => {
 
-    const socket = io("http://localhost:3002");
+    const socket = io("http://192.168.1.11:3002");
 
     useEffect(() => {
         socket.on("connect", () => {
@@ -16,7 +16,7 @@ const AdminPage: React.FC = () => {
         return () => {
             socket.disconnect();
         }
-    }, []);
+    }, [socket]);
     
     const sendTrigger = () => {
         console.log("sending trigger");

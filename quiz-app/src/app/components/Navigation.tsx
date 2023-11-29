@@ -30,7 +30,7 @@ const Navigation = () => {
               <Navbar.Collapse id="navbarScroll" className="ms-auto">
                 <Nav className="ml-auto">
                   <Nav.Item className="my-2 mr-4"> 
-                    <Link href="/admin" className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-inner">
+                    <Link href="/quiz/add" className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-inner">
                       <p>Create Quiz</p>
                     </Link>
                   </Nav.Item>
