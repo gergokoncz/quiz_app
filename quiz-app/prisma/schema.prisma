@@ -10,10 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Quiz {
   id Int @id @default(autoincrement())
   creator String @default("anonymous")
+  token String @default("123456")
   theme String
+  description String?
   created_date DateTime @default(now())
   updated_date DateTime @default(now())
   questions Question[]
