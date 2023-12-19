@@ -1,4 +1,5 @@
 import prisma from "@/app/lib/prisma";
+import { Quiz } from "@/app/components/Quiz/QuizListItem";
 
 export async function GET(
   request: Request,
@@ -12,6 +13,16 @@ export async function GET(
         id: parseInt(id),
       },
     });
-    return Response.json({ quiz: res });
+
+    if (res) {
+      return Response.json({ quiz: res } satisfies QuizResponse);
+    }
+    return Response.json({ error: "Quiz not found" } satisfies QuizResponse);
   }
+  return Response.json({ error: "No id provided" } satisfies QuizResponse);
 }
+
+export type QuizResponse = {
+  quiz?: Quiz;
+  error?: string;
+};

@@ -1,20 +1,21 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import Navigation from './components/Navigation'
-import {Container} from 'react-bootstrap'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navigation from "./components/Navigation";
+import { Container } from "react-bootstrap";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'DFDS Quiz App',
-  description: 'Simple quiz app to create and play live quizzes',
-}
+  title: "DFDS Quiz App",
+  description: "Simple quiz app to create and play live quizzes",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -23,5 +24,5 @@ export default function RootLayout({
         <Container>{children}</Container>
       </body>
     </html>
-  )
+  );
 }

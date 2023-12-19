@@ -1,6 +1,6 @@
 "use client";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import prisma from "./lib/prisma";
 import { use, useEffect, useState } from "react";
 import { API_QUIZ_ENDPOINT } from "./lib/urls/api_urls";
