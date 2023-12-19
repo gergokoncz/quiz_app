@@ -25,6 +25,8 @@ model Quiz {
 model Question {
   id Int @id @default(autoincrement())
   quiz_id Int
+  order_in_quiz Int
+  point Int @default(1)
   quiz Quiz @relation(fields: [quiz_id], references: [id])
   created_date DateTime @default(now())
   updated_date DateTime @default(now())

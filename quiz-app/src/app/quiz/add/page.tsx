@@ -3,6 +3,8 @@
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { FormEvent, useRef, useState } from "react";
+import axios from "axios";
+import { API_QUIZ_ENDPOINT } from "@/app/lib/urls/api_urls";
 
 const AddQuizPage: React.FC = () => {
   const [requestSent, setRequestSent] = useState(false);
@@ -15,7 +17,21 @@ const AddQuizPage: React.FC = () => {
   const submitFormHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const quizData = {};
+    const enteredQuizCreator = quizCreatorRef.current!.value;
+    const enteredToken = tokenRef.current!.value;
+    const enteredTheme = themeRef.current!.value;
+    const enteredDescription = descriptionRef.current!.value;
+
+    const quizData = {
+      creator: enteredQuizCreator,
+      token: enteredToken,
+      theme: enteredTheme,
+      description: enteredDescription,
+    };
+
+    console.log(quizData);
+    const response = await axios.post(API_QUIZ_ENDPOINT, quizData);
+    console.log(response);
   };
 
   return (
@@ -53,6 +69,12 @@ const AddQuizPage: React.FC = () => {
             ref={descriptionRef}
           ></Form.Control>
         </Form.Group>
+        <Button
+          className="mx-auto my-2 border-1 bg-dfds-main rounded-lg p-1 text-sm max-w-xl"
+          type="submit"
+        >
+          Create quiz
+        </Button>
       </Form>
     </Container>
   );

@@ -7,12 +7,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const data = await request.json();
-  console.log(data);
-  // const res = await prisma.quiz.create({
-  //   data: {
-  //     name,
-  //     description,
-  //   },
-  // });
-  // return Response.json({ quiz: res });
+  const res = await prisma.quiz.create({
+    data,
+  });
+  return Response.json({ quiz: res });
 }
