@@ -5,17 +5,30 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const id = params.id;
+  const quiz_id = params.id;
+  console.log("entered quiz/[id]/route.ts");
+  console.log(params);
 
-  if (id) {
-    const res = await prisma.quiz.findUnique({
+  if (quiz_id) {
+    const quiz_data = await prisma.quiz.findUnique({
       where: {
-        id: parseInt(id),
+        id: Number(quiz_id),
       },
     });
 
+    const questions = await prisma.question.findMany({
+      where: {
+        quiz_id: Number(quiz_id),
+      },
+    });
+
+    const res = {
+      quiz: quiz_data,
+      questions: questions,
+    };
+
     if (res) {
-      return Response.json({ quiz: res } satisfies QuizResponse);
+      return Response.json(res satisfies QuizResponse);
     }
     return Response.json({ error: "Quiz not found" } satisfies QuizResponse);
   }
@@ -24,5 +37,6 @@ export async function GET(
 
 export type QuizResponse = {
   quiz?: Quiz;
+  questions?: any;
   error?: string;
 };

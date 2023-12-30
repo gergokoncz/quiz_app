@@ -6,6 +6,7 @@ import { use, useEffect, useState } from "react";
 import { API_QUIZ_ENDPOINT } from "./lib/urls/api_urls";
 import axios from "axios";
 import QuizList from "./components/Quiz/QuizList";
+import { useRouter } from "next/router";
 
 async function getData() {
   const res = await prisma.quiz.findMany();
@@ -34,7 +35,6 @@ export default function Home() {
   console.log(data);
   return (
     <main className="flex max-h-screen flex-col items-center justify-between p-24">
-      <p>Home page</p>
       <p>{isLoading}</p>
       {!isLoading && <QuizList quizzes={data.quizzes} />}
     </main>

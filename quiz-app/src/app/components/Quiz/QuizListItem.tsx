@@ -1,11 +1,13 @@
 import { Container } from "react-bootstrap";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
   faPenToSquare,
   faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
+import { EDIT_QUIZ_PAGE, PLAY_QUIZ_PAGE } from "@/app/lib/urls/frontend_urls";
 
 export type Question = {
   id: number;
@@ -37,11 +39,13 @@ export type Quiz = {
 };
 
 const QuizListItem: React.FC<{ quiz: Quiz }> = (props) => {
+  const router = useRouter();
+
   const playQuiz = () => {
-    console.log("play quiz");
+    router.push(`${PLAY_QUIZ_PAGE}/${props.quiz.id}`);
   };
   const editQuiz = () => {
-    console.log("edit quiz");
+    router.push(`${EDIT_QUIZ_PAGE}/${props.quiz.id}`);
   };
 
   const seeResults = () => {

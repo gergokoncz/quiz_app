@@ -3,7 +3,6 @@
 import React, { use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "./logo";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
 
@@ -13,7 +12,7 @@ const Navigation = () => {
       <Navbar
         expand="md"
         variant="dark"
-        className="w-full min-h-20 bg-dfds-main sticky top-0"
+        className="w-full min-h-20 bg-main sticky top-0"
       >
         <Container fluid>
           <Navbar.Brand href="/">
@@ -30,7 +29,7 @@ const Navigation = () => {
               <Nav.Item className="my-2 mr-4">
                 <Link
                   href="/quiz/add"
-                  className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
+                  className="flex items-end justify-center no-underline text-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
                 >
                   <p>Create Quiz</p>
                 </Link>
@@ -38,7 +37,7 @@ const Navigation = () => {
               <Nav.Item className="my-2 mr-4">
                 <Link
                   href="/quiz"
-                  className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
+                  className="flex items-end justify-center no-underline text-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
                 >
                   <p>Take Quiz</p>
                 </Link>
@@ -46,7 +45,7 @@ const Navigation = () => {
               <Nav.Item className="my-2 mr-4">
                 <Link
                   href="/quiz"
-                  className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
+                  className="flex items-end justify-center no-underline text-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
                 >
                   <p>Run Quiz</p>
                 </Link>
@@ -54,7 +53,7 @@ const Navigation = () => {
               <Nav.Item className="my-2 mr-4">
                 <Link
                   href="/contact"
-                  className="flex items-end justify-center no-underline text-dfds-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
+                  className="flex items-end justify-center no-underline text-main h-12 rounded-lg bg-white font-bold px-4 align-middle hover:text-dfds-light shadow-xl"
                 >
                   <p>Contact</p>
                 </Link>
