@@ -33,10 +33,10 @@ model Question {
   updated_date DateTime @default(now())
   question_type String
   question_text String
-  option_one String
-  option_two String
-  option_three String
-  option_four String
-  correct_option Int
-  guess_correct Int @default(0)
+  option_one String @default("")
+  option_two String @default("")
+  option_three String @default("")
+  option_four String @default("")
+  correct_option Int @default(1)
+  correct_guess Int @default(0)
 }

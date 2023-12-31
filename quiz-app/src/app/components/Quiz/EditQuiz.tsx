@@ -2,17 +2,28 @@ import AddQuestionModal from "../Question/AddQuestionModal";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { QuizResponse } from "@/app/api/quiz/[id]/route";
 
-const EditQuiz: React.FC<{ quizData: any }> = () => {
+const EditQuiz: React.FC<{ quizData: QuizResponse }> = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const newQuestionModal = () => {
     handleShow();
   };
+
+  let questionNumber = 0;
+  if (props.quizData.questions) {
+    questionNumber = props.quizData.questions.length;
+  }
   return (
-    <div>
-      <AddQuestionModal quizId={Number(5)} show={show} onHide={handleClose} />
+    <div className="text-black">
+      <AddQuestionModal
+        quizId={props.quizData.quiz!.id}
+        orderInQuiz={questionNumber} // new question will be added to the end of the quiz
+        show={show}
+        onHide={handleClose}
+      />
       <div className="flex justify-center hover:bg-white">
         <button
           onClick={newQuestionModal}

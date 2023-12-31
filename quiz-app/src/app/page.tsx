@@ -1,17 +1,10 @@
 "use client";
 
-// import "bootstrap/dist/css/bootstrap.min.css";
-import prisma from "./lib/prisma";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_QUIZ_ENDPOINT } from "./lib/urls/api_urls";
 import axios from "axios";
 import QuizList from "./components/Quiz/QuizList";
-import { useRouter } from "next/router";
-
-async function getData() {
-  const res = await prisma.quiz.findMany();
-  return res;
-}
+import LoadingPage from "./components/UI/LoadingPage";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -35,7 +28,7 @@ export default function Home() {
   console.log(data);
   return (
     <main className="flex max-h-screen flex-col items-center justify-between p-24">
-      <p>{isLoading}</p>
+      {isLoading && <LoadingPage />}
       {!isLoading && <QuizList quizzes={data.quizzes} />}
     </main>
   );

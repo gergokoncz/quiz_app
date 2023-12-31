@@ -1,4 +1,5 @@
 import prisma from "@/app/lib/prisma";
+import type { DBQuestion } from "@/app/lib/types/dbTypes";
 
 export async function GET() {
   const res = await prisma.question.findMany();
@@ -6,6 +7,18 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const data = await request.json();
+  const res = await prisma.question.create({
+    data,
+  });
+  return Response.json({ question: res });
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  // not working
   const data = await request.json();
   const res = await prisma.question.create({
     data,

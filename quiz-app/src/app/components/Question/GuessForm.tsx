@@ -1,22 +1,26 @@
-import { Form } from "react-bootstrap";
 import { useRef } from "react";
+import { QuestionCreationData } from "./AddQuestionModal";
 
-const GuessForm: React.FC<{}> = () => {
+const GuessForm: React.FC<{
+  saveQuestion: (questionData: QuestionCreationData) => void;
+  onHide: () => void;
+}> = (props) => {
   const questionTextRef = useRef<HTMLInputElement>(null);
   const pointValueRef = useRef<HTMLInputElement>(null);
   const timeForQuestionRef = useRef<HTMLInputElement>(null);
   const correctGuessRef = useRef<HTMLInputElement>(null);
 
-  // const saveDataset = () => {
-  //   console.log("new dataset saved");
-  //   const enteredDatasetName = questionTextRef.current!.value;
-  //   const enteredDatasetDescription = questionTypeRef.current!.value;
-  //   const enteredDatasetType = datasetTypeRef.current!.value;
+  const saveGuessQuestion = () => {
+    console.log("saving guess question");
+    const questionData = {
+      question_text: questionTextRef.current!.value,
+      point: Number(pointValueRef.current!.value),
+      time_limit: Number(timeForQuestionRef.current!.value),
+      correct_guess: Number(correctGuessRef.current!.value),
+    };
 
-  //   console.log(enteredDatasetName);
-  //   console.log(enteredDatasetDescription);
-  //   console.log(enteredDatasetType);
-  // };
+    props.saveQuestion(questionData);
+  };
 
   return (
     <form>
@@ -59,6 +63,22 @@ const GuessForm: React.FC<{}> = () => {
           defaultValue={0}
           ref={correctGuessRef}
         ></input>
+      </div>
+      <div className="flex justify-end items-center pt-3 border-t">
+        <button
+          onClick={props.onHide}
+          className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+        >
+          Close
+        </button>
+        <button
+          onClick={saveGuessQuestion}
+          className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+        >
+          Save Question
+        </button>
       </div>
       {/* <div className="flex flex-col mt-1 mb-1 border-2 border-slate-300 rounded-md max-w-sl">
         <label className="mx-4 mb-1 mt-2 text-sm">

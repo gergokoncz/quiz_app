@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,37 +7,9 @@ import {
   faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import { EDIT_QUIZ_PAGE, PLAY_QUIZ_PAGE } from "@/app/lib/urls/frontend_urls";
+import { DBQuiz } from "@/app/lib/types/dbTypes";
 
-export type Question = {
-  id: number;
-  quiz_id: string;
-  order_in_quiz: number;
-  points: number;
-  created_date?: Date | undefined;
-  updated_date?: Date | undefined;
-  question_type: string;
-  question_text: string;
-  option1?: string | undefined;
-  option2?: string | undefined;
-  option3?: string | undefined;
-  option4?: string | undefined;
-  correct_option?: number | undefined;
-  guess?: number | undefined;
-  guess_correct?: number | undefined;
-};
-
-export type Quiz = {
-  id: number;
-  creator: string;
-  token: string;
-  theme: string;
-  description?: string | undefined;
-  created_date?: Date | undefined;
-  updated_date?: Date | undefined;
-  questions?: Question[];
-};
-
-const QuizListItem: React.FC<{ quiz: Quiz }> = (props) => {
+const QuizListItem: React.FC<{ quiz: DBQuiz }> = (props) => {
   const router = useRouter();
 
   const playQuiz = () => {

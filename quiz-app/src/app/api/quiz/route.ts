@@ -1,5 +1,5 @@
 import prisma from "@/app/lib/prisma";
-import { Quiz } from "@/app/components/Quiz/QuizListItem";
+import type { DBQuiz } from "@/app/lib/types/dbTypes";
 import { QuizResponse } from "./[id]/route";
 
 const headers = {
@@ -10,7 +10,7 @@ export async function GET() {
   try {
     const res = await prisma.quiz.findMany();
     return Response.json({ quizzes: res } satisfies QuizListResponse);
-  } catch (e) {
+  } catch (e: any) {
     return Response.json({ error: e.message } satisfies QuizListResponse);
   }
 }
@@ -27,6 +27,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // not tested
   const id = params.id;
 
   if (id) {
@@ -45,6 +46,6 @@ export async function DELETE(
 }
 
 export type QuizListResponse = {
-  quizzes?: Quiz[];
+  quizzes?: DBQuiz[];
   error?: string;
 };

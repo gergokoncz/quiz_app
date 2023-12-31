@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import io from "socket.io-client";
-import { Container } from "react-bootstrap";
 
 const AdminPage: React.FC = () => {
   const socket = io("http://localhost:3002");
@@ -23,12 +22,12 @@ const AdminPage: React.FC = () => {
   };
 
   return (
-    <Container className="flex flex-col text-center">
-      <Container className="border text-lg m-12">Admin Page</Container>
-      <Container className="border text-base ml-6 mr-6 mb-3">
+    <div className="flex flex-col text-center">
+      <div className="border text-lg m-12">Admin Page</div>
+      <div className="border text-base ml-6 mr-6 mb-3">
         <button onClick={sendTrigger}>Trigger</button>
-      </Container>
-    </Container>
+      </div>
+    </div>
   );
 };
 
