@@ -15,3 +15,23 @@ export async function GET(
     return Response.json({ question: res });
   }
 }
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const questionData = await request.json();
+  const questionId = params.id;
+
+  console.log(questionData);
+
+  if (questionId) {
+    const res = await prisma.question.update({
+      where: {
+        id: parseInt(questionId),
+      },
+      data: questionData,
+    });
+    return Response.json({ res });
+  }
+}

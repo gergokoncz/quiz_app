@@ -1,8 +1,10 @@
 import { useRef } from "react";
-import { QuestionCreationData } from "./AddQuestionModal";
+import { QuestionFormData } from "./QuestionModal";
 
 const GuessForm: React.FC<{
-  saveQuestion: (questionData: QuestionCreationData) => void;
+  edit: boolean;
+  questionData: QuestionFormData;
+  saveQuestion: (questionData: QuestionFormData) => void;
   onHide: () => void;
 }> = (props) => {
   const questionTextRef = useRef<HTMLInputElement>(null);
@@ -11,8 +13,11 @@ const GuessForm: React.FC<{
   const correctGuessRef = useRef<HTMLInputElement>(null);
 
   const saveGuessQuestion = () => {
-    console.log("saving guess question");
     const questionData = {
+      id: props.questionData.id,
+      quiz_id: props.questionData.quiz_id,
+      order_in_quiz: props.questionData.order_in_quiz,
+      //
       question_text: questionTextRef.current!.value,
       point: Number(pointValueRef.current!.value),
       time_limit: Number(timeForQuestionRef.current!.value),
@@ -20,6 +25,7 @@ const GuessForm: React.FC<{
     };
 
     props.saveQuestion(questionData);
+    props.onHide();
   };
 
   return (
@@ -28,6 +34,7 @@ const GuessForm: React.FC<{
         <label className="mx-4 mb-1 mt-2 text-sm">Question</label>
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.question_text : ""}
           ref={questionTextRef}
         ></input>
       </div>
@@ -39,7 +46,7 @@ const GuessForm: React.FC<{
           min={1}
           max={100}
           step={1}
-          defaultValue={1}
+          defaultValue={props.edit ? props.questionData.point : 1}
           ref={pointValueRef}
         ></input>
       </div>
@@ -51,7 +58,7 @@ const GuessForm: React.FC<{
           min={5}
           max={100}
           step={1}
-          defaultValue={30}
+          defaultValue={props.edit ? props.questionData.time_limit : 30}
           ref={timeForQuestionRef}
         ></input>
       </div>
@@ -60,7 +67,7 @@ const GuessForm: React.FC<{
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
           type="number"
-          defaultValue={0}
+          defaultValue={props.edit ? props.questionData.correct_guess : 0}
           ref={correctGuessRef}
         ></input>
       </div>

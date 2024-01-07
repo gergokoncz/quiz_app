@@ -4,10 +4,16 @@ import GuessForm from "./GuessForm";
 import { API_QUESTION_ENDPOINT } from "@/app/lib/urls/api_urls";
 import axios from "axios";
 
-export type QuestionCreationData = {
-  question_text: string;
-  point: number;
-  time_limit: number;
+export type QuestionFormData = {
+  id?: number;
+  quiz_id: number;
+  question_text?: string;
+  question_type?: "multiple choice" | "guess";
+  order_in_quiz: number;
+  created_date?: string;
+  updated_date?: string;
+  point?: number;
+  time_limit?: number;
   option_one?: string;
   option_two?: string;
   option_three?: string;
@@ -16,25 +22,34 @@ export type QuestionCreationData = {
   correct_guess?: number;
 };
 
-const AddQuestionModal: React.FC<{
-  quizId: number;
+const QuestionModal: React.FC<{
+  edit: boolean;
+  questionData: QuestionFormData;
   show: boolean;
-  orderInQuiz: number;
   onHide: () => void;
 }> = (props) => {
   const [questionType, setQuestionType] = useState<"multiple choice" | "guess">(
-    "multiple choice"
+    props.questionData.question_type
+      ? props.questionData.question_type
+      : "multiple choice"
   );
 
-  const saveQuestion = async (questionData: QuestionCreationData) => {
-    console.log("save question");
+  const saveQuestion = async (questionData: QuestionFormData) => {
     console.log(questionData);
-    const response = await axios.post(API_QUESTION_ENDPOINT, {
-      ...questionData,
-      quiz_id: props.quizId,
-      order_in_quiz: props.orderInQuiz,
-      question_type: questionType,
-    });
+    if (!props.edit) {
+      const response = await axios.post(API_QUESTION_ENDPOINT, {
+        questionData,
+      });
+    } else {
+      console.log("save edited question");
+      const response = await axios.put(
+        `${API_QUESTION_ENDPOINT}${props.questionData.id}`,
+        {
+          ...questionData,
+          question_type: questionType,
+        }
+      );
+    }
   };
 
   return (
@@ -77,11 +92,18 @@ const AddQuestionModal: React.FC<{
         <div className="py-3">
           {questionType === "multiple choice" ? (
             <MultipleChoiceForm
+              edit={props.edit}
+              questionData={props.questionData}
               saveQuestion={saveQuestion}
               onHide={props.onHide}
             />
           ) : (
-            <GuessForm saveQuestion={saveQuestion} onHide={props.onHide} />
+            <GuessForm
+              edit={props.edit}
+              questionData={props.questionData}
+              saveQuestion={saveQuestion}
+              onHide={props.onHide}
+            />
           )}
         </div>
       </div>
@@ -89,4 +111,4 @@ const AddQuestionModal: React.FC<{
   );
 };
 
-export default AddQuestionModal;
+export default QuestionModal;

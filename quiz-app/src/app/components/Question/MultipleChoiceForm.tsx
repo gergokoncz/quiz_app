@@ -1,8 +1,10 @@
 import { useRef } from "react";
-import { QuestionCreationData } from "./AddQuestionModal";
+import { QuestionFormData } from "./QuestionModal";
 
 const MultipleChoiceForm: React.FC<{
-  saveQuestion: (questionData: QuestionCreationData) => void;
+  edit: boolean;
+  questionData: QuestionFormData;
+  saveQuestion: (questionData: QuestionFormData) => void;
   onHide: () => void;
 }> = (props) => {
   const questionTextRef = useRef<HTMLInputElement>(null);
@@ -15,8 +17,11 @@ const MultipleChoiceForm: React.FC<{
   const correctOptionRef = useRef<HTMLSelectElement>(null);
 
   const saveMultipleChoiceQuestion = () => {
-    console.log("saving multiple choice question");
     const questionData = {
+      id: props.questionData.id,
+      quiz_id: props.questionData.quiz_id,
+      order_in_quiz: props.questionData.order_in_quiz,
+      //
       question_text: questionTextRef.current!.value,
       point: Number(pointValueRef.current!.value),
       time_limit: Number(timeForQuestionRef.current!.value),
@@ -28,6 +33,7 @@ const MultipleChoiceForm: React.FC<{
     };
 
     props.saveQuestion(questionData);
+    props.onHide();
   };
 
   return (
@@ -37,6 +43,7 @@ const MultipleChoiceForm: React.FC<{
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
           ref={questionTextRef}
+          defaultValue={props.edit ? props.questionData.question_text : ""}
         ></input>
       </div>
       <div className="flex flex-col mt-1 mb-1 border-2 border-slate-300 rounded-md max-w-sl">
@@ -47,7 +54,7 @@ const MultipleChoiceForm: React.FC<{
           min={1}
           max={100}
           step={1}
-          defaultValue={1}
+          defaultValue={props.edit ? props.questionData.point : 1}
           ref={pointValueRef}
         ></input>
       </div>
@@ -59,7 +66,7 @@ const MultipleChoiceForm: React.FC<{
           min={5}
           max={100}
           step={1}
-          defaultValue={30}
+          defaultValue={props.edit ? props.questionData.time_limit : 30}
           ref={timeForQuestionRef}
         ></input>
       </div>
@@ -67,6 +74,7 @@ const MultipleChoiceForm: React.FC<{
         <label className="mx-4 mb-1 mt-2 text-sm">Option 1</label>
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.option_one : ""}
           ref={optionOneTextRef}
         ></input>
       </div>
@@ -74,6 +82,7 @@ const MultipleChoiceForm: React.FC<{
         <label className="mx-4 mb-1 mt-2 text-sm">Option 2</label>
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.option_two : ""}
           ref={optionTwoTextRef}
         ></input>
       </div>
@@ -81,6 +90,7 @@ const MultipleChoiceForm: React.FC<{
         <label className="mx-4 mb-1 mt-2 text-sm">Option 3</label>
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.option_three : ""}
           ref={optionThreeTextRef}
         ></input>
       </div>
@@ -88,6 +98,7 @@ const MultipleChoiceForm: React.FC<{
         <label className="mx-4 mb-1 mt-2 text-sm">Option 4</label>
         <input
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.option_four : ""}
           ref={optionFourTextRef}
         ></input>
       </div>
@@ -97,6 +108,7 @@ const MultipleChoiceForm: React.FC<{
           title="select correct option"
           id="correctOptionInput"
           className="mx-4 mt-0 mb-2 border-1 bg-slate-100 rounded-md p-1 text-black max-w-xs text-sm"
+          defaultValue={props.edit ? props.questionData.correct_option : ""}
           ref={correctOptionRef}
         >
           <option value="1">1</option>

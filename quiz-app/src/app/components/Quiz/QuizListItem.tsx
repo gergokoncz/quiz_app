@@ -39,13 +39,25 @@ const QuizListItem: React.FC<{ quiz: DBQuiz }> = (props) => {
       </div>
       <div className="flex mb-2">
         <button onClick={playQuiz} className="mx-2">
-          <FontAwesomeIcon icon={faPlay} />
+          <FontAwesomeIcon
+            icon={faPlay}
+            title="Play quiz"
+            className="hover:text-blue-800 text-xl"
+          />
         </button>
         <button onClick={editQuiz} className="mx-2">
-          <FontAwesomeIcon icon={faPenToSquare} />
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            title="Edit quiz"
+            className="hover:text-blue-800 text-xl"
+          />
         </button>
         <button onClick={seeResults} className="mx-2">
-          <FontAwesomeIcon icon={faChartSimple} />
+          <FontAwesomeIcon
+            icon={faChartSimple}
+            title="Quiz results"
+            className="hover:text-blue-800 text-xl"
+          />
         </button>
       </div>
     </div>
